@@ -45,7 +45,7 @@ func StringSum(input string) (output string, err error) {
 		}
 	}
 
-	if len(indexOfOperands) > 2 {
+	if len(indexOfOperands) != 2 {
 		return "", errorNotTwoOperands
 	}
 
