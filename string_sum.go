@@ -1,4 +1,4 @@
-package string_sum
+package main
 
 import (
 	"errors"
@@ -26,10 +26,12 @@ var (
 // Use the errors defined above as described, again wrapping into fmt.Errorf
 
 func StringSum(input string) (output string, err error) {
+	const errorMsg = "invalid input"
+
 	trimmed := strings.ReplaceAll(input, " ", "")
 
 	if trimmed == "" {
-		return "", fmt.Errorf("invalid input %w", errorEmptyInput)
+		return "", fmt.Errorf(errorMsg+" %w", errorEmptyInput)
 	}
 
 	if _, err := strconv.Atoi(string(trimmed[0])); err == nil {
@@ -47,17 +49,17 @@ func StringSum(input string) (output string, err error) {
 		}
 
 		if _, err := strconv.Atoi(char); err != nil && char != " " {
-			return "", fmt.Errorf("invalid input %w", err)
+			return "", fmt.Errorf(errorMsg+" %w", err)
 		}
 	}
 
 	numberOfOperands := len(indexOfOperands)
 
 	if numberOfOperands != 2 {
-		return "", fmt.Errorf("invalid input %w", errorNotTwoOperands)
+		return "", fmt.Errorf(errorMsg+" %w", errorNotTwoOperands)
 	}
 
-	point := indexOfOperands[0]
+	point := indexOfOperands[1]
 
 	firstOperand, err := strconv.Atoi(trimmed[0:point])
 	secondOperand, err := strconv.Atoi(trimmed[point:])
