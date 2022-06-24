@@ -45,12 +45,21 @@ func StringSum(input string) (output string, err error) {
 		}
 	}
 
-	if len(indexOfOperands) != 2 {
+	numberOfOperands := len(indexOfOperands)
+
+	if numberOfOperands > 2 {
 		return "", errorNotTwoOperands
 	}
 
-	firstOperand, err := strconv.Atoi(trimmed[0:indexOfOperands[1]])
-	secondOperand, err := strconv.Atoi(trimmed[indexOfOperands[1]:])
+	var point int
+	if numberOfOperands == 1 {
+		point = indexOfOperands[0]
+	} else {
+		point = indexOfOperands[1]
+	}
+
+	firstOperand, err := strconv.Atoi(trimmed[0:point])
+	secondOperand, err := strconv.Atoi(trimmed[point:])
 
 	result := firstOperand + secondOperand
 
