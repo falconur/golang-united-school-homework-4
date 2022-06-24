@@ -29,8 +29,14 @@ func StringSum(input string) (output string, err error) {
 	trimmed := strings.ReplaceAll(input, " ", "")
 
 	if trimmed == "" {
-		return "", errorEmptyInput
+		return "", fmt.Errorf("invalid input %w", errorEmptyInput)
 	}
+
+	if _, err := strconv.Atoi(string(trimmed[0])); err == nil {
+		trimmed = "+" + trimmed
+	}
+	fmt.Println(trimmed)
+
 	var indexOfOperands []int
 	for i := 0; i < len(trimmed); i++ {
 		char := string(trimmed[i])
@@ -47,16 +53,11 @@ func StringSum(input string) (output string, err error) {
 
 	numberOfOperands := len(indexOfOperands)
 
-	if numberOfOperands > 2 {
-		return "", errorNotTwoOperands
+	if numberOfOperands != 2 {
+		return "", fmt.Errorf("invalid input %w", errorNotTwoOperands)
 	}
 
-	var point int
-	if numberOfOperands == 1 {
-		point = indexOfOperands[0]
-	} else {
-		point = indexOfOperands[1]
-	}
+	point := indexOfOperands[0]
 
 	firstOperand, err := strconv.Atoi(trimmed[0:point])
 	secondOperand, err := strconv.Atoi(trimmed[point:])
